@@ -4,14 +4,26 @@
 using namespace std;
 
 
-// CONSTRUCTORS
+// CONSTRUCTORS AND DESTRUCTORS
 
 LinkedList::LinkedList() {
     this->headNode = nullptr;
 }
 
-LinkedList::LinkedList(Node* headNode) {
-    this->headNode = headNode;
+LinkedList::~LinkedList() {
+    
+    Node* currentNode = this->headNode;
+    Node* lastNode = nullptr;
+
+    while(currentNode != nullptr) {
+        lastNode = currentNode;
+        currentNode = currentNode->getNext();
+
+        delete lastNode;
+    }
+
+    this->headNode = nullptr;
+
 }
 
 //
@@ -30,24 +42,21 @@ void LinkedList::printList() const {
     }
 }
 
-void LinkedList::pushFront(Node* node) {
+void LinkedList::pushFront(int value) {
 
-    if(node == nullptr) {
-        cout << "Error! You can't add nullptr to the list!\n";
-        return;
-    }
+    Node* node = new Node;
+
+    node->setData(value);
 
     node->setNext(this->headNode);
     this->headNode = node;
 }
 
-void LinkedList::pushBack(Node* node) {
+void LinkedList::pushBack(int value) {
     Node* currentNode = this->headNode;
+    Node* node = new Node;
 
-    if(node == nullptr) {
-        cout << "Error! You can't add nullptr to the list!\n";
-        return;
-    }
+    node->setData(value);
 
     if(currentNode == nullptr) {
         this->headNode = node;
@@ -62,25 +71,20 @@ void LinkedList::pushBack(Node* node) {
     }
 }
 
-void LinkedList::insert(Node* node, int position) {
+void LinkedList::insert(int value, int position) {
     Node* currentNode = this->headNode;
-
-    if(node == nullptr) {
-        cout << "Error! You can't add nullptr to the list!\n";
-        return;
-    }
 
     if(position <= 0) {
         if(position != 0)
             cout << "Position " << position << " doesn't exist. Pushing the node to the front of the list.\n";
-        this->pushFront(node);
+        this->pushFront(value);
         return;
     }
 
     for(int i = 0; i < position - 1; i++) {
         if(currentNode == nullptr) {
             cout << "Position " << position << " doesn't exist. Pushing the node to the back of the list.\n";
-            this->pushBack(node);
+            this->pushBack(value);
             return;
         }
         
@@ -90,9 +94,12 @@ void LinkedList::insert(Node* node, int position) {
 
     if(currentNode == nullptr) {
         cout << "Position " << position << " doesn't exist. Pushing the node to the back of the list.\n";
+        this->pushBack(value);
         return;
     }
     else {
+        Node* node = new Node;
+        node->setData(value);
         node->setNext(currentNode->getNext());
         currentNode->setNext(node);
     }

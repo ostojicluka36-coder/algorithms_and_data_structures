@@ -6,17 +6,16 @@ using namespace std;
 
 int main() {
 
-    Node node3(30);
-    Node node2(20, &node3);
-    Node node1(10, &node2);
+    LinkedList lista;
 
-    LinkedList list(&node1);
-    LinkedList lista0;
-    //list.printList();
+    lista.pushFront(3);
+    lista.pushFront(2);
+    lista.pushFront(1);
+    lista.pushBack(4);
 
-    cout << list.isEmpty() << endl;
-    cout << list.size() << endl;
+    lista.insert(100, -50);
 
+    lista.printList();
 
     return 0;
 }

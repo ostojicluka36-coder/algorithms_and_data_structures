@@ -6,12 +6,12 @@
 class LinkedList {
     public:
         LinkedList();
-        LinkedList(Node* headNode);
+        ~LinkedList();
 
         void printList() const;
-        void pushFront(Node* node);
-        void pushBack(Node* node);
-        void insert(Node* node, int position);
+        void pushFront(int value);
+        void pushBack(int value);
+        void insert(int value, int position);
         bool isEmpty() const;
         int size() const;
 
